@@ -1,55 +1,80 @@
 [listener]
-type="socket"
+type = "socket"
 
 [service.ssh-simulator]
-type="ssh-simulator"
-credentials=["root:root", "root:password"]
+type = "ssh-simulator"
+credentials = ["root:root", "root:password"]
 
 [[port]]
-ports=["tcp/8022"]
-services=["ssh-simulator"]
+ports = ["tcp/8022"]
+services = ["ssh-simulator"]
+
+#-----------------------
 
 [service.telnet]
-type="telnet"
-prompt=">"
+type = "telnet"
+prompt = ">"
 
 [[port]]
-port="tcp/8023"
-services=["telnet"]
+port = "tcp/8023"
+services = ["telnet"]
 
 #-----------------------
 
 [service.ftp]
-type="ftp"
+type = "ftp"
+anonymous_login = true
 
 [[port]]
-port="tcp/8021"
-services=["ftp"]
+port = "tcp/8021"
+services = ["ftp"]
 
 #-----------------------
 
 [service.http01]
-type="http"
-server="Nginx"
+type = "http"
+server = "Nginx"
+root = "/var/www/html"
 
 [[port]]
-port="tcp/8080"
-services=["http01"]
+port = "tcp/8080"
+services = ["http01"]
+
+#-----------------------
+
+[service.http02]
+type = "http"
+server = "Apache"
+root = "/var/www/public"
+
+[[port]]
+port = "tcp/8081"
+services = ["http02"]
 
 #-----------------------
 
 [service.redis]
-type="redis"
-version="4.0.2"
-os="Linux 2.6.32-431.el6.x86_64 x86_64"
+type = "redis"
+version = "4.0.2"
+os = "Linux 2.6.32-431.el6.x86_64 x86_64"
 
 [[port]]
-port="tcp/6379"
-services=["redis"]
+port = "tcp/6379"
+services = ["redis"]
 
+#-----------------------
+
+[service.mysql]
+type = "mysql"
+version = "5.7"
+root_password = "rootpassword"
+
+[[port]]
+port = "tcp/3306"
+services = ["mysql"]
 
 [channel.console]
-type="console"
+type = "console"
 
 [[filter]]
-channel=["console"]
+channel = ["console"]
